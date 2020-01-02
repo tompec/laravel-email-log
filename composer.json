@@ -1,0 +1,54 @@
+{
+    "name": "tompec/laravel-email-log",
+    "description": "A Laravel package to log the outgoing emails",
+    "keywords": [
+        "tompec",
+        "laravel-email-log"
+    ],
+    "homepage": "https://github.com/tompec/laravel-email-log",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Thomas Petracco",
+            "email": "git@mail.tompec.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.8.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tompec\\LaravelEmailLog\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tompec\\LaravelEmailLog\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tompec\\LaravelEmailLog\\LaravelEmailLogServiceProvider"
+            ],
+            "aliases": {
+                "LaravelEmailLog": "Tompec\\LaravelEmailLog\\LaravelEmailLogFacade"
+            }
+        }
+    }
+}
