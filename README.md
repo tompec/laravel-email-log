@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/tompec/laravel-email-log.svg?style=flat-square)](https://scrutinizer-ci.com/g/tompec/laravel-email-log)
 [![Total Downloads](https://img.shields.io/packagist/dt/tompec/laravel-email-log.svg?style=flat-square)](https://packagist.org/packages/tompec/laravel-email-log)
 
-`laravel-email-log` logs outgoing emails sent to your users.  
+`laravel-email-log` logs outgoing emails sent to your users.
 If you use MailGun, you can also track deliveries, failures, opens and clicks.
 
 ## Installation
@@ -17,6 +17,7 @@ composer require tompec/laravel-email-log
 ```
 
 If you use Laravel 5.5+, the package will register itself, otherwise, add this to your `config/app.php`
+
 ``` php
 'providers' => [
     Tompec\EmailLog\EmailLogServiceProvider::class,
@@ -24,6 +25,7 @@ If you use Laravel 5.5+, the package will register itself, otherwise, add this t
 ```
 
 Publish the configuration file:
+
 ```bash
 php artisan vendor:publish --provider="Tompec\EmailLog\EmailLogServiceProvider"
 ```
@@ -49,11 +51,13 @@ return [
 ```
 
 Run the migration:
+
 ```bash
 php artisan migrate
 ```
 
-Optional: if you want to get all the email logs for your a user, add this to your App\User.php file (or the model you chose as your `recipient_model`):
+Optional: if you want to get all the email logs for your a user, add this to your `App\User.php` file (or the model you chose as your `recipient_model`):
+
 ```php
 public function email_logs()
 {
@@ -83,7 +87,7 @@ If you discover any security related issues, please email laravel-email-log@mail
 
 ## Credits
 
-- [Thomas Petracco](https://github.com/tompec)
+- [Thomas Petracco](https://www.tompec.com/) ([GitHub](https://github.com/tompec))
 - [All Contributors](../../contributors)
 
 ## License
