@@ -18,13 +18,13 @@ class MailGunControllerTest extends TestCase
         ]);
 
         foreach (['delivered', 'failed', 'opened', 'clicked'] as $status) {
-            $this->assertNull($email->{$status . '_at'});
+            $this->assertNull($email->{$status.'_at'});
 
             $response = $this->makeRequest($status, 'email_id', config('services.mailgun.secret'));
 
             $response->assertStatus(200);
 
-            $this->assertNotNull($email->fresh()->{$status . '_at'});
+            $this->assertNotNull($email->fresh()->{$status.'_at'});
         }
     }
 
@@ -74,14 +74,14 @@ class MailGunControllerTest extends TestCase
                 'message' => [
                     'headers' => [
                         'message-id' => 'email_id',
-                    ]
-                ]
+                    ],
+                ],
             ],
             'signature' => [
                 'token' => $token,
                 'timestamp' => $timestamp,
-                'signature' => hash_hmac('sha256', $timestamp . $token, $secret)
-            ]
+                'signature' => hash_hmac('sha256', $timestamp.$token, $secret),
+            ],
         ]);
     }
 }

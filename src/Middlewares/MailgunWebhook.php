@@ -35,6 +35,6 @@ class MailgunWebhook
         }
 
         // returns true if signature is valid
-        return hash_hmac('sha256', $timestamp . $token, config('services.mailgun.secret')) === $signature;
+        return hash_hmac('sha256', $timestamp.$token, config('services.mailgun.secret')) === $signature;
     }
 }
