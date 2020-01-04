@@ -27,7 +27,7 @@ class MailGunController extends Controller
         }
 
         if (in_array($data['event'], ['opened', 'clicked', 'delivered', 'failed'])) {
-            if ($delivery->{$data['event'] . '_at'} == null) {
+            if ($delivery->{$data['event'].'_at'} == null) {
                 $delivery->update(["{$data['event']}_at" => now()]);
             }
         }
