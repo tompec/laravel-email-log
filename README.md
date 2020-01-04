@@ -25,7 +25,7 @@ If you use Laravel 5.5+, the package will register itself, otherwise, add this t
 
 Publish the configuration file:
 ```bash
-php artisan vendor:publish --provider="Dmcbrn\LaravelEmailDatabaseLog\LaravelEmailDatabaseLogServiceProvider"
+php artisan vendor:publish --provider="Tompec\EmailLog\EmailLogServiceProvider"
 ```
 
 Optional: edit the default configuration values in `email-log.php`.
