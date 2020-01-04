@@ -1,6 +1,6 @@
 {
     "name": "tompec/laravel-email-log",
-    "description": "A Laravel package to log the outgoing emails",
+    "description": "A Laravel package to log outgoing emails",
     "keywords": [
         "tompec",
         "laravel-email-log"
@@ -17,26 +17,26 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "5.8.*"
+        "illuminate/support": "^6.0",
+        "illuminate/database": "^6.0"
     },
     "require-dev": {
-        "orchestra/testbench": "3.8.*",
+        "orchestra/testbench": "4.4.*",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Tompec\\LaravelEmailLog\\": "src"
+            "Tompec\\EmailLog\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tompec\\LaravelEmailLog\\Tests\\": "tests"
+            "Tompec\\EmailLog\\Tests\\": "tests"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tompec\\LaravelEmailLog\\LaravelEmailLogServiceProvider"
+                "Tompec\\EmailLog\\EmailLogServiceProvider"
             ],
             "aliases": {
-                "LaravelEmailLog": "Tompec\\LaravelEmailLog\\LaravelEmailLogFacade"
+                "EmailLog": "Tompec\\EmailLog\\LaravelEmailLogFacade"
             }
         }
     }

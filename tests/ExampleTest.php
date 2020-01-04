@@ -1,6 +1,6 @@
 <?php
 
-namespace Tompec\LaravelEmailLog\Tests;
+namespace Tompec\EmailLog\Tests;
 
 use PHPUnit\Framework\TestCase;
 
