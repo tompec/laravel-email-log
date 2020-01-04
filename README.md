@@ -55,7 +55,7 @@ php artisan migrate
 
 Optional: if you want to get all the email logs for your a user, add this to your App\User.php file (or the model you chose as your `recipient_model`):
 ```php
-public function emails_logs()
+public function email_logs()
 {
     return $this->morphMany(\Tompec\EmailLog\EmailLog::class, 'recipient');
 }
