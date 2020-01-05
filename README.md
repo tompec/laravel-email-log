@@ -24,13 +24,21 @@ If you use Laravel 5.5+, the package will register itself, otherwise, add this t
 ],
 ```
 
+Run the migration:
+
+```bash
+php artisan migrate
+```
+
+## Configuration (optional)
+
 Publish the configuration file:
 
 ```bash
 php artisan vendor:publish --provider="Tompec\EmailLog\EmailLogServiceProvider"
 ```
 
-Optional: edit the default configuration values in `email-log.php`.
+Here's the content of the config file.
 ```php
 return [
     /*
@@ -50,13 +58,7 @@ return [
 ];
 ```
 
-Run the migration:
-
-```bash
-php artisan migrate
-```
-
-Optional: if you want to get all the email logs for your a user, add this to your `App\User.php` file (or the model you chose as your `recipient_model`):
+If you want to get all the email logs for your a user, add this to your `App\User.php` file (or the model you chose as your `recipient_model`):
 
 ```php
 public function email_logs()
@@ -66,6 +68,16 @@ public function email_logs()
 ```
 
 Then you can do `App\User::find(1)->email_logs` to retreive all the emails that this user has received.
+
+## Webhooks
+
+If you use [Mailgun](https://www.mailgun.com/), you can track these 4 events: `delivered `, `opened`, `clicked`, `permanent_fail`.
+
+Add the following url [as a new webhook](https://documentation.mailgun.com/en/latest/user_manual.html#webhooks).
+
+``` bash
+https://www.yourdomain.com/email-log/mailgun
+```
 
 ### Testing
 
