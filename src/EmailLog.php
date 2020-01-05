@@ -8,6 +8,13 @@ class EmailLog extends Model
 {
     protected $guarded = [];
 
+    protected $dates = [
+        'delivered_at',
+        'failed_at',
+        'opened_at',
+        'clicked_at',
+    ];
+
     public function __construct(array $attributes = [])
     {
         if (! isset($this->table)) {
