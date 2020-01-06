@@ -20,20 +20,22 @@ class EmailLogEvent
 
         $recipientEmail = $this->getTo($headers);
 
-        $recipient = $recipientModel::where(config('email-log.recipient_email_column'), $recipientEmail)->firstOrFail();
+        $recipient = $recipientModel::where(config('email-log.recipient_email_column'), $recipientEmail)->first();
 
-        EmailLog::create([
-            'from' => $this->getFrom($headers),
-            'to' => $recipient->email,
-            'subject' => $message->getSubject(),
-            'body' => $message->getBody(),
+        if ($recipient) {
+            EmailLog::create([
+                'from' => $this->getFrom($headers),
+                'to' => $recipient->email,
+                'subject' => $message->getSubject(),
+                'body' => $message->getBody(),
 
-            'provider' => config('mail.driver'),
-            'provider_email_id' => $message->getId(),
+                'provider' => config('mail.driver'),
+                'provider_email_id' => $message->getId(),
 
-            'recipient_type' => config('email-log.recipient_model'),
-            'recipient_id' => $recipient->id,
-        ]);
+                'recipient_type' => config('email-log.recipient_model'),
+                'recipient_id' => $recipient->id,
+            ]);
+        }
     }
 
     public function getFrom($headers)
