@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 use Tompec\EmailLog\Tests\User;
 
 $factory->define(User::class, function (Faker $faker) {

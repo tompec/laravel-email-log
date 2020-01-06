@@ -2,10 +2,10 @@
 
 namespace Tompec\EmailLog\Tests\Feature;
 
-use Tompec\EmailLog\Tests\User;
-use Tompec\EmailLog\Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Tompec\EmailLog\Tests\TestCase;
 use Tompec\EmailLog\Tests\TestEmail;
+use Tompec\EmailLog\Tests\User;
 
 class EmailLogEventTest extends TestCase
 {
