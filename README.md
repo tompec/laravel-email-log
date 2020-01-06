@@ -3,6 +3,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tompec/laravel-email-log.svg?style=flat-square)](https://packagist.org/packages/tompec/laravel-email-log)
 [![Build Status](https://img.shields.io/travis/tompec/laravel-email-log/master.svg?style=flat-square)](https://travis-ci.org/tompec/laravel-email-log)
 [![Quality Score](https://img.shields.io/scrutinizer/g/tompec/laravel-email-log.svg?style=flat-square)](https://scrutinizer-ci.com/g/tompec/laravel-email-log)
+[![Coverage](https://img.shields.io/scrutinizer/coverage/g/tompec/laravel-email-log?style=flat-square)](https://scrutinizer-ci.com/g/tompec/laravel-email-log)
+[![StyleCI](https://styleci.io/repos/231732412/shield)](https://styleci.io/repos/231732412)
 [![Total Downloads](https://img.shields.io/packagist/dt/tompec/laravel-email-log.svg?style=flat-square)](https://packagist.org/packages/tompec/laravel-email-log)
 
 `laravel-email-log` logs outgoing emails sent to your users.

@@ -15,7 +15,9 @@ abstract class TestCase extends BaseTestCase
 
         $this->withFactories('./database/factories');
 
-        $this->artisan('migrate');
+        $this->loadLaravelMigrations();
+
+        $this->artisan('migrate')->run();
     }
 
     /**
@@ -29,6 +31,8 @@ abstract class TestCase extends BaseTestCase
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('services.mailgun.secret', 'testing');
+        $app['config']->set('view.paths', ['tests']);
+        $app['config']->set('email-log.recipient_model', 'Tompec\EmailLog\Tests\User');
     }
 
     /**

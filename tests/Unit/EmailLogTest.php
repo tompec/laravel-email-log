@@ -4,6 +4,7 @@ namespace Tompec\EmailLog\Tests\Unit;
 
 use Carbon\Carbon;
 use Tompec\EmailLog\EmailLog;
+use Tompec\EmailLog\Tests\User;
 use Tompec\EmailLog\Tests\TestCase;
 
 class EmailLogTest extends TestCase
@@ -38,5 +39,21 @@ class EmailLogTest extends TestCase
 
         $this->assertInstanceOf(Carbon::class, $emailLog->created_at);
         $this->assertInstanceOf(Carbon::class, $emailLog->updated_at);
+    }
+
+    /** @test **/
+    public function an_email_log_has_a_recipient()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'user@example.com',
+        ]);
+
+        $emailLog = factory(EmailLog::class)->create([
+            'recipient_id' => $user->id,
+            'recipient_type' => config('email-log.recipient_model'),
+        ]);
+
+        $this->assertInstanceOf(config('email-log.recipient_model'), $emailLog->recipient);
+        $this->assertEquals('user@example.com', $emailLog->recipient->email);
     }
 }
