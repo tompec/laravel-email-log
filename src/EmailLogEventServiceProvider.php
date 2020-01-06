@@ -2,8 +2,8 @@
 
 namespace Tompec\EmailLog;
 
-use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Mail\Events\MessageSending;
 
 class EmailLogEventServiceProvider extends EventServiceProvider
 {
