@@ -57,6 +57,11 @@ return [
      * This is the name of the column that the `recipient_model` uses to store the email address.
      */
     'recipient_email_column' => 'email',
+
+    /*
+     * Whether or not you want to log emails that don't belong to any model
+     */
+    'log_unknown_recipients' => true,
 ];
 ```
 
