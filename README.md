@@ -86,13 +86,21 @@ Add the following url [as a new webhook](https://documentation.mailgun.com/en/la
 https://www.yourdomain.com/email-log/mailgun
 ```
 
-### Testing
+## Laravel Nova
+If you use [Laravel Nova](https://nova.laravel.com/), you can create a new resource to view the content of the table:
+
+``` bash
+php artisan nova:resource EmailLog
+```
+Then paste the content of [this gist](https://gist.github.com/tompec/53108f575aa277102fdcca5e14543c06) for a quick setup.
+
+## Testing
 
 ``` bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -100,7 +108,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email laravel-email-log@mail.tompec.com instead of using the issue tracker.
 
