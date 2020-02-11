@@ -17,8 +17,9 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/support": "^6.0",
-        "illuminate/database": "^6.0"
+        "doctrine/dbal": "^2.10",
+        "illuminate/database": "^6.0",
+        "illuminate/support": "^6.0"
     },
     "require-dev": {
         "orchestra/testbench": "^4.4.0",
