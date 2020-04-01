@@ -17,6 +17,11 @@ class MailGunController extends Controller
     {
         $data = $request->get('event-data');
 
+        if (! isset($data['message']['headers']['message-id'])) {
+            // If Mailgun receives a 406 (Not Acceptable) code, Mailgun will determine the POST is rejected and not retry.
+            abort(406);
+        }
+
         $message_id = $data['message']['headers']['message-id'];
 
         $delivery = EmailLog::where('provider', 'mailgun')->where('provider_email_id', $message_id)->first();
