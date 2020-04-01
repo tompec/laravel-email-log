@@ -1,8 +1,9 @@
-build
-composer.lock
-docs
-vendor
-coverage
+.DS_Store
 .php_cs.cache
 .phpunit.result.cache
-.DS_Store
+build
+code-coverage
+composer.lock
+coverage
+docs
+vendor
