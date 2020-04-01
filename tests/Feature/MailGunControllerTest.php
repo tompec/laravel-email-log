@@ -100,23 +100,23 @@ class MailGunControllerTest extends TestCase
         $token = '';
 
         return $this->json('POST', '/email-log/mailgun', [
-            "event-data" => [
-                "delivery-status" => [
-                    "bounce-code" => "5.4.14",
-                    "code" => 550,
-                    "description" => "",
-                    "message" => "lorem"
+            'event-data' => [
+                'delivery-status' => [
+                    'bounce-code' => '5.4.14',
+                    'code' => 550,
+                    'description' => '',
+                    'message' => 'lorem',
                 ],
-                "event" => "failed",
-                "flags" => [
-                    "is-delayed-bounce" => true
+                'event' => 'failed',
+                'flags' => [
+                    'is-delayed-bounce' => true,
                 ],
-                "id" => "lorem",
-                "log-level" => "error",
-                "reason" => "bounce",
-                "recipient" => "email@example.com",
-                "severity" => "permanent",
-                "timestamp" => $timestamp
+                'id' => 'lorem',
+                'log-level' => 'error',
+                'reason' => 'bounce',
+                'recipient' => 'email@example.com',
+                'severity' => 'permanent',
+                'timestamp' => $timestamp,
             ],
             'signature' => [
                 'token' => $token,
