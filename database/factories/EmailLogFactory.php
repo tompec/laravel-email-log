@@ -1,6 +1,6 @@
 <?php
 
-use Tompec\EmailLog\EmailLog;
+use Tompec\EmailLog\Models\EmailLog;
 
 $factory->define(EmailLog::class, function () {
     return [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tompec\EmailLog;
+namespace Tompec\EmailLog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

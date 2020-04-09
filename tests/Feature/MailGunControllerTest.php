@@ -2,8 +2,8 @@
 
 namespace Tompec\EmailLog\Tests\Feature;
 
-use Tompec\EmailLog\EmailLog;
 use Tompec\EmailLog\Tests\TestCase;
+use Tompec\EmailLog\Models\EmailLog;
 
 class MailGunControllerTest extends TestCase
 {

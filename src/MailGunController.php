@@ -4,6 +4,7 @@ namespace Tompec\EmailLog;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Tompec\EmailLog\Models\EmailLog;
 use Tompec\EmailLog\Middlewares\MailgunWebhook;
 
 class MailGunController extends Controller
@@ -24,16 +25,16 @@ class MailGunController extends Controller
 
         $message_id = $data['message']['headers']['message-id'];
 
-        $delivery = EmailLog::where('provider', 'mailgun')->where('provider_email_id', $message_id)->first();
+        $email_log = EmailLog::where('provider', 'mailgun')->where('provider_email_id', $message_id)->first();
 
-        if (! $delivery) {
+        if (! $email_log) {
             // If Mailgun receives a 406 (Not Acceptable) code, Mailgun will determine the POST is rejected and not retry.
             abort(406);
         }
 
         if (in_array($data['event'], ['opened', 'clicked', 'delivered', 'failed'])) {
-            if ($delivery->{$data['event'].'_at'} == null) {
-                $delivery->update(["{$data['event']}_at" => now()]);
+            if ($email_log->{$data['event'].'_at'} == null) {
+                $email_log->update(["{$data['event']}_at" => now()]);
             }
         }
     }
