@@ -27,4 +27,9 @@ class EmailLog extends Model
     {
         return $this->morphTo();
     }
+
+    public function events()
+    {
+        return $this->hasMany(EmailEvent::class);
+    }
 }

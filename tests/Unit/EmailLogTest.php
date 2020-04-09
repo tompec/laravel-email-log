@@ -3,6 +3,7 @@
 namespace Tompec\EmailLog\Tests\Unit;
 
 use Carbon\Carbon;
+use Tompec\EmailLog\Models\EmailEvent;
 use Tompec\EmailLog\Models\EmailLog;
 use Tompec\EmailLog\Tests\TestCase;
 use Tompec\EmailLog\Tests\User;
@@ -55,5 +56,17 @@ class EmailLogTest extends TestCase
 
         $this->assertInstanceOf(config('email-log.recipient_model'), $emailLog->recipient);
         $this->assertEquals('user@example.com', $emailLog->recipient->email);
+    }
+
+    /** @test **/
+    public function an_email_log_has_events()
+    {
+        $emailLog = factory(EmailLog::class)->create();
+
+        $emailLog->events()->create(
+            factory(EmailEvent::class)->make()->toArray()
+        );
+
+        $this->assertInstanceOf(EmailEvent::class, $emailLog->events->first());
     }
 }
