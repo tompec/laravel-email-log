@@ -1,10 +1,11 @@
 <?php
 
-namespace Tompec\EmailLog;
+namespace Tompec\EmailLog\Events;
 
+use Tompec\EmailLog\Models\EmailLog;
 use Illuminate\Mail\Events\MessageSending;
 
-class EmailLogEvent
+class NewEmailSent
 {
     /**
      * Handle the event.
