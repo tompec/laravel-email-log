@@ -4,9 +4,9 @@ namespace Tompec\EmailLog;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Tompec\EmailLog\Models\EmailLog;
 use Tompec\EmailLog\Jobs\FetchEmailEvents;
 use Tompec\EmailLog\Middlewares\MailgunWebhook;
+use Tompec\EmailLog\Models\EmailLog;
 
 class MailGunController extends Controller
 {

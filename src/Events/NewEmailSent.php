@@ -2,8 +2,8 @@
 
 namespace Tompec\EmailLog\Events;
 
-use Tompec\EmailLog\Models\EmailLog;
 use Illuminate\Mail\Events\MessageSending;
+use Tompec\EmailLog\Models\EmailLog;
 
 class NewEmailSent
 {
