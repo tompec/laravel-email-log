@@ -4,12 +4,12 @@ namespace Tompec\EmailLog\Jobs;
 
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
-use Tompec\EmailLog\Models\EmailLog;
-use Illuminate\Queue\SerializesModels;
-use Tompec\EmailLog\Models\EmailEvent;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Tompec\EmailLog\Models\EmailEvent;
+use Tompec\EmailLog\Models\EmailLog;
 
 class FetchEmailEvents implements ShouldQueue
 {

@@ -3,9 +3,9 @@
 namespace Tompec\EmailLog\Tests\Unit;
 
 use Carbon\Carbon;
-use Tompec\EmailLog\Tests\User;
-use Tompec\EmailLog\Tests\TestCase;
 use Tompec\EmailLog\Models\EmailLog;
+use Tompec\EmailLog\Tests\TestCase;
+use Tompec\EmailLog\Tests\User;
 
 class EmailLogTest extends TestCase
 {

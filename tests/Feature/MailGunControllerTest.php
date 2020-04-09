@@ -2,11 +2,11 @@
 
 namespace Tompec\EmailLog\Tests\Feature;
 
-use Tompec\EmailLog\Tests\TestCase;
-use Tompec\EmailLog\Models\EmailLog;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Queue;
 use Tompec\EmailLog\Jobs\FetchEmailEvents;
+use Tompec\EmailLog\Models\EmailLog;
+use Tompec\EmailLog\Tests\TestCase;
 
 class MailGunControllerTest extends TestCase
 {
