@@ -4,6 +4,9 @@ namespace Tompec\EmailLog\Tests\Feature;
 
 use Tompec\EmailLog\Tests\TestCase;
 use Tompec\EmailLog\Models\EmailLog;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Config;
+use Tompec\EmailLog\Jobs\FetchEmailEvents;
 
 class MailGunControllerTest extends TestCase
 {
@@ -66,6 +69,46 @@ class MailGunControllerTest extends TestCase
         $response = $this->makeInvalidRequest(config('services.mailgun.secret'));
 
         $response->assertStatus(406);
+    }
+
+    /** @test **/
+    public function the_fetch_jobs_is_queued_when_the_config_allows_it()
+    {
+        Queue::fake();
+
+        Config::set('email-log.log_events', true);
+
+        $email = factory(EmailLog::class)->create([
+            'provider' => 'mailgun',
+            'provider_email_id' => 'email_id',
+        ]);
+
+        $response = $this->makeRequest('delivered', 'email_id', config('services.mailgun.secret'));
+
+        $response->assertStatus(200);
+
+        Queue::assertPushed(FetchEmailEvents::class, function ($job) use ($email) {
+            return $job->email->id === $email->id;
+        });
+    }
+
+    /** @test **/
+    public function the_fetch_jobs_is_not_queued_when_the_config_disallows_it()
+    {
+        Queue::fake();
+
+        Config::set('email-log.log_events', false);
+
+        $email = factory(EmailLog::class)->create([
+            'provider' => 'mailgun',
+            'provider_email_id' => 'email_id',
+        ]);
+
+        $response = $this->makeRequest('delivered', 'email_id', config('services.mailgun.secret'));
+
+        $response->assertStatus(200);
+
+        Queue::assertNothingPushed();
     }
 
     public function makeRequest($status, $email_id, $secret, $timestamp = null)

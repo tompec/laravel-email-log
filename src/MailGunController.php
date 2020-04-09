@@ -5,6 +5,7 @@ namespace Tompec\EmailLog;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Tompec\EmailLog\Models\EmailLog;
+use Tompec\EmailLog\Jobs\FetchEmailEvents;
 use Tompec\EmailLog\Middlewares\MailgunWebhook;
 
 class MailGunController extends Controller
@@ -35,6 +36,10 @@ class MailGunController extends Controller
         if (in_array($data['event'], ['opened', 'clicked', 'delivered', 'failed'])) {
             if ($email_log->{$data['event'].'_at'} == null) {
                 $email_log->update(["{$data['event']}_at" => now()]);
+
+                if (config('email-log.log_events')) {
+                    FetchEmailEvents::dispatch($email_log);
+                }
             }
         }
     }
