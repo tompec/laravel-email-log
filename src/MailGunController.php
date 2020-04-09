@@ -38,7 +38,7 @@ class MailGunController extends Controller
                 $email_log->update(["{$data['event']}_at" => now()]);
 
                 if (config('email-log.log_events')) {
-                    FetchEmailEvents::dispatch($email_log);
+                    FetchEmailEvents::dispatch($email_log)->onQueue(config('email-log.queue'));
                 }
             }
         }

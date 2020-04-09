@@ -30,4 +30,9 @@ return [
      * Whether or not you want to fetch events from Mailgun and store the data
      */
     'log_events' => false,
+
+    /*
+     * The default queue to push the jobs to
+     */
+    'queue' => 'default',
 ];
