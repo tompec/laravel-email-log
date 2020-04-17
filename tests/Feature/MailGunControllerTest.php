@@ -60,7 +60,7 @@ class MailGunControllerTest extends TestCase
     {
         $response = $this->makeRequest('delivered', 'wrong_email_id', config('services.mailgun.secret'));
 
-        $response->assertStatus(406);
+        $response->assertSee('No email log found')->assertStatus(406);
     }
 
     /** @test **/
@@ -68,7 +68,7 @@ class MailGunControllerTest extends TestCase
     {
         $response = $this->makeInvalidRequest(config('services.mailgun.secret'));
 
-        $response->assertStatus(406);
+        $response->assertSee('No message-id found')->assertStatus(406);
     }
 
     /** @test **/
@@ -109,6 +109,34 @@ class MailGunControllerTest extends TestCase
         $response->assertStatus(200);
 
         Queue::assertNothingPushed();
+    }
+
+    /** @test **/
+    public function an_event_linked_to_a_webhook_message_is_discarded()
+    {
+        $timestamp = time();
+        $token = '';
+
+        $response = $this->json('POST', '/email-log/mailgun', [
+            'event-data' => [
+                'event' => 'delivered',
+                'message' => [
+                    'headers' => [
+                        'message-id' => 'email_id',
+                    ],
+                ],
+                'envelope' => [
+                    'targets' => route('email-log-mailgun-webhook'),
+                ]
+            ],
+            'signature' => [
+                'token' => $token,
+                'timestamp' => $timestamp,
+                'signature' => hash_hmac('sha256', $timestamp.$token, config('services.mailgun.secret')),
+            ],
+        ]);
+
+        $response->assertSee('Webhook event')->assertStatus(200);
     }
 
     public function makeRequest($status, $email_id, $secret, $timestamp = null)

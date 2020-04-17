@@ -19,9 +19,14 @@ class MailGunController extends Controller
     {
         $data = $request->get('event-data');
 
+        // If the event is linked to a webhook message, discard it
+        if ($this->isWebhookEvent($data)) {
+            return response()->json(['Webhook event'], 200);
+        }
+
         if (! isset($data['message']['headers']['message-id'])) {
             // If Mailgun receives a 406 (Not Acceptable) code, Mailgun will determine the POST is rejected and not retry.
-            abort(406);
+            return response()->json(['No message-id found'], 406);
         }
 
         $message_id = $data['message']['headers']['message-id'];
@@ -30,7 +35,7 @@ class MailGunController extends Controller
 
         if (! $email_log) {
             // If Mailgun receives a 406 (Not Acceptable) code, Mailgun will determine the POST is rejected and not retry.
-            abort(406);
+            return response()->json(['No email log found'], 406);
         }
 
         if (in_array($data['event'], ['opened', 'clicked', 'delivered', 'failed'])) {
@@ -42,5 +47,18 @@ class MailGunController extends Controller
                 }
             }
         }
+    }
+
+    public function isWebhookEvent($data)
+    {
+        if (! isset($data['envelope']['targets'])) {
+            return false;
+        }
+
+        if ($data['envelope']['targets'] !== route('email-log-mailgun-webhook')) {
+            return false;
+        }
+
+        return true;
     }
 }
