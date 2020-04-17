@@ -127,7 +127,7 @@ class MailGunControllerTest extends TestCase
                 ],
                 'envelope' => [
                     'targets' => route('email-log-mailgun-webhook'),
-                ]
+                ],
             ],
             'signature' => [
                 'token' => $token,
