@@ -30,7 +30,7 @@ class NewEmailSent
                 'subject' => $message->getSubject(),
                 'body' => $message->getBody(),
 
-                'provider' => config('mail.driver'),
+                'provider' => config('mail.default'),
                 'provider_email_id' => $message->getId(),
 
                 'recipient_type' => $recipient ? config('email-log.recipient_model') : null,
