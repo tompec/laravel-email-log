@@ -2,14 +2,11 @@
 
 namespace Tompec\EmailLog\Jobs;
 
-use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Tompec\EmailLog\Jobs\FetchEmailEvents;
-use Tompec\EmailLog\Models\EmailEvent;
 use Tompec\EmailLog\Models\EmailLog;
 
 class SaveLog implements ShouldQueue
