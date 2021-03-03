@@ -2,12 +2,12 @@
 
 namespace Tompec\EmailLog\Jobs;
 
-use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Http;
 use Tompec\EmailLog\Models\EmailEvent;
 use Tompec\EmailLog\Models\EmailLog;
 
@@ -34,19 +34,14 @@ class FetchEmailEvents implements ShouldQueue
      */
     public function handle()
     {
-        $response = (new Client)->get('https://api.mailgun.net/v3/'.config('services.mailgun.domain').'/events', [
-            'auth' => [
-                'api',
-                config('services.mailgun.secret'),
-            ],
-            'query' => [
-                'message-id' => $this->email->provider_email_id,
-            ],
-        ])->getBody()->getContents();
+        $response = Http::withBasicAuth('api', config('services.mailgun.secret'))->
+                            get('https://api.mailgun.net/v3/'.config('services.mailgun.domain').'/events', [
+                                'message-id' => $this->email->provider_email_id,
+                            ])
+                            ->throw()
+                            ->json();
 
-        $json = json_decode($response, true);
-
-        foreach ($json['items'] as $event) {
+        foreach ($response['items'] as $event) {
             EmailEvent::firstOrCreate([
                 'provider_event_id' => $event['id'],
             ], [

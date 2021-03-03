@@ -25,7 +25,7 @@ class EmailLogEventTest extends TestCase
             'to' => 'test@example.com',
             'subject' => 'Test subject',
             'body' => "test body\n",
-            'provider' => 'array',
+            // 'provider' => 'array',
             'recipient_id' => $user->id,
             'recipient_type' => config('email-log.recipient_model'),
         ]);
@@ -43,7 +43,7 @@ class EmailLogEventTest extends TestCase
             'to' => 'unknown@example.com',
             'subject' => 'Test subject',
             'body' => "test body\n",
-            'provider' => 'array',
+            // 'provider' => 'array',
             'recipient_id' => null,
             'recipient_type' => null,
         ]);

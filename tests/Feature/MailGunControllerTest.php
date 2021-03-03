@@ -4,7 +4,7 @@ namespace Tompec\EmailLog\Tests\Feature;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Queue;
-use Tompec\EmailLog\Jobs\FetchEmailEvents;
+use Tompec\EmailLog\Jobs\SaveLog;
 use Tompec\EmailLog\Models\EmailLog;
 use Tompec\EmailLog\Tests\TestCase;
 
@@ -56,14 +56,6 @@ class MailGunControllerTest extends TestCase
     }
 
     /** @test **/
-    public function a_webhook_with_for_an_email_not_found_returns_a_406()
-    {
-        $response = $this->makeRequest('delivered', 'wrong_email_id', config('services.mailgun.secret'));
-
-        $response->assertSee('No email log found')->assertStatus(406);
-    }
-
-    /** @test **/
     public function a_webhook_with_no_message_id_returns_a_406()
     {
         $response = $this->makeInvalidRequest(config('services.mailgun.secret'));
@@ -87,28 +79,7 @@ class MailGunControllerTest extends TestCase
 
         $response->assertStatus(200);
 
-        Queue::assertPushed(FetchEmailEvents::class, function ($job) use ($email) {
-            return $job->email->id === $email->id;
-        });
-    }
-
-    /** @test **/
-    public function the_fetch_jobs_is_not_queued_when_the_config_disallows_it()
-    {
-        Queue::fake();
-
-        Config::set('email-log.log_events', false);
-
-        $email = factory(EmailLog::class)->create([
-            'provider' => 'mailgun',
-            'provider_email_id' => 'email_id',
-        ]);
-
-        $response = $this->makeRequest('delivered', 'email_id', config('services.mailgun.secret'));
-
-        $response->assertStatus(200);
-
-        Queue::assertNothingPushed();
+        Queue::assertPushed(SaveLog::class);
     }
 
     /** @test **/
