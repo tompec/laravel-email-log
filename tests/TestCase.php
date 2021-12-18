@@ -24,7 +24,6 @@ abstract class TestCase extends BaseTestCase
      * Define environment setup.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -42,7 +41,6 @@ abstract class TestCase extends BaseTestCase
      * the config/app.php file.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getPackageProviders($app)
@@ -59,7 +57,6 @@ abstract class TestCase extends BaseTestCase
      * facades upon which your package depends, e.g. Cartalyst/Sentry.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     *
      * @return array
      */
     protected function getPackageAliases($app)
