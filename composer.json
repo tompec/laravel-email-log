@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^8.0",
         "doctrine/dbal": ">=2.10",
         "guzzlehttp/guzzle": ">=6.5",
         "illuminate/database": ">=6.0",
