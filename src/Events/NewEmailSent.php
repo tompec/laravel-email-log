@@ -10,7 +10,7 @@ class NewEmailSent
     /**
      * Handle the event.
      *
-     * @param MessageSending $event
+     * @param  MessageSending  $event
      */
     public function handle(MessageSending $event)
     {
