@@ -10,7 +10,7 @@ class NewEmailSent
     /**
      * Handle the event.
      *
-     * @param  MessageSending  $event
+     * @param MessageSending $event
      */
     public function handle(MessageSending $event)
     {
@@ -28,10 +28,10 @@ class NewEmailSent
                 'from' => $this->getFrom($headers),
                 'to' => $recipientEmail,
                 'subject' => $message->getSubject(),
-                'body' => $message->getBody(),
+                'body' => $message->getBody()->toString(),
 
                 'provider' => config('mail.default'),
-                'provider_email_id' => $message->getId(),
+                'provider_email_id' => $message->generateMessageId(),
 
                 'recipient_type' => $recipient ? config('email-log.recipient_model') : null,
                 'recipient_id' => optional($recipient)->id,
@@ -41,15 +41,11 @@ class NewEmailSent
 
     public function getFrom($headers)
     {
-        return collect($headers->get('From')->getFieldBodyModel())
-                    ->map(function ($name, $email) {
-                        return "{$name} <{$email}>";
-                    })
-                    ->first();
+        return collect($headers->get('From')->getAddressStrings())->first();
     }
 
     public function getTo($headers)
     {
-        return $headers->has('To') ? collect($headers->get('To')->getFieldBodyModel())->keys()->first() : null;
+        return collect($headers->get('To')->getAddressStrings())->first();
     }
 }
