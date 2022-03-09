@@ -3,7 +3,7 @@
 namespace Tompec\EmailLog;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
-use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Mail\Events\MessageSent;
 use Tompec\EmailLog\Events\NewEmailSent;
 
 class EmailLogEventServiceProvider extends EventServiceProvider
@@ -14,7 +14,7 @@ class EmailLogEventServiceProvider extends EventServiceProvider
      * @var array
      */
     protected $listen = [
-        MessageSending::class => [
+        MessageSent::class => [
             NewEmailSent::class,
         ],
     ];

@@ -2,7 +2,7 @@
 
 namespace Tompec\EmailLog\Events;
 
-use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Mail\Events\MessageSent;
 use Tompec\EmailLog\Models\EmailLog;
 
 class NewEmailSent
@@ -10,42 +10,29 @@ class NewEmailSent
     /**
      * Handle the event.
      *
-     * @param  MessageSending  $event
+     * @param  MessageSent  $event
      */
-    public function handle(MessageSending $event)
+    public function handle(MessageSent $event)
     {
-        $message = $event->message;
-        $headers = $message->getHeaders();
-
         $recipientModel = config('email-log.recipient_model');
 
-        $recipientEmail = $this->getTo($headers);
+        $recipientEmail = $event->message->getTo()[0]->getAddress();
 
         $recipient = $recipientModel::where(config('email-log.recipient_email_column'), $recipientEmail)->first();
 
         if ($recipient || config('email-log.log_unknown_recipients')) {
             EmailLog::create([
-                'from' => $this->getFrom($headers),
+                'from' => $event->message->getFrom()[0]->toString(),
                 'to' => $recipientEmail,
-                'subject' => $message->getSubject(),
-                'body' => $message->getBody()->toString(),
+                'subject' => $event->message->getSubject(),
+                'body' => $event->message->getHtmlBody(),
 
                 'provider' => config('mail.default'),
-                'provider_email_id' => $message->generateMessageId(),
+                'provider_email_id' => str($event->sent->getMessageId())->trim('<>')->__toString(),
 
                 'recipient_type' => $recipient ? config('email-log.recipient_model') : null,
-                'recipient_id' => optional($recipient)->id,
+                'recipient_id' => $recipient?->id,
             ]);
         }
-    }
-
-    public function getFrom($headers)
-    {
-        return collect($headers->get('From')->getAddressStrings())->first();
-    }
-
-    public function getTo($headers)
-    {
-        return collect($headers->get('To')->getAddressStrings())->first();
     }
 }
